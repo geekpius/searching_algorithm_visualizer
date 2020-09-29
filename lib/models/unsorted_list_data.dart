@@ -15,6 +15,12 @@ class UnsortedListData {
     return _unsortedList;
   }
 
+  void clearUnsortedListData() {
+    _unsortedList.clear();
+  }
+
+  int get listLength => _unsortedList.length;
+
   int get searchNumber {
     int randomNumber = random.nextInt(50);
     if (randomNumber != 0) {

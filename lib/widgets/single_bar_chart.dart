@@ -12,13 +12,8 @@ class _SingleBarChart extends State<SingleBarChart> {
   List<charts.Series<UnsortedList, String>> _seriesData;
 
   UnsortedListData unsortedListData = new UnsortedListData();
-  _generateData() {
-    // var data1 = [
-    //   UnsortedList(number: 54),
-    //   UnsortedList(number: 20),
-    //   UnsortedList(number: 31),
-    // ];
 
+  _generateData() {
     _seriesData.add(
           charts.Series(
             data: unsortedListData.getUnsortedListData,
@@ -40,33 +35,70 @@ class _SingleBarChart extends State<SingleBarChart> {
   }
 
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Container(
-        child: Center(
-          child: Column(
+    return Container(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 10.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Unsorted List',
-                style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              FlatButton(
+                onPressed: () {
+                  setState(() {
+                    _seriesData = List<charts.Series<UnsortedList, String>>();
+                    unsortedListData.clearUnsortedListData();
+                    _generateData();
+                  });
+                },
+                color: Colors.blueAccent,
+                child: Text('Generate List (${unsortedListData.listLength})'),
               ),
               SizedBox(
-                height: 10,
+                width: 20.0,
               ),
-              Expanded(
-                child: charts.BarChart(
-                  _seriesData,
-                  animate: true,
-                  animationDuration: Duration(seconds: 5),
-                  barGroupingType: charts.BarGroupingType.grouped,
-                ),
+              FlatButton(
+                onPressed: () {
+                  print('Searching...');
+                },
+                color: Colors.green[500],
+                child: Text('Search No# ${unsortedListData.searchNumber}'),
               ),
             ],
           ),
-        ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Container(
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        'Unsorted List',
+                        style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: charts.BarChart(
+                          _seriesData,
+                          animate: true,
+                          animationDuration: Duration(seconds: 5),
+                          barGroupingType: charts.BarGroupingType.grouped,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
