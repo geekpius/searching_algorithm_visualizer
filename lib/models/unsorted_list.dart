@@ -1,7 +1,8 @@
 
 class UnsortedList{
 
-  final int number;
-  UnsortedList({this.number});
+  int index;
+  int value;
+  UnsortedList({this.index, this.value});
 
  }
